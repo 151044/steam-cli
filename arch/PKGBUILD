@@ -1,0 +1,17 @@
+pkgname=steam-cli
+pkgver=0.0.1
+pkgrel=1
+arch=('any')
+pkgdesc="Small wrapper around Steam to launch games from CLI."
+license=('GPL3')
+makedepends=('git' 'cmake')
+source=($pkgname::git+https://github.com/151044/steam-cli)
+build(){
+	cd $pkgname
+	cmake .
+	cmake --build .
+}
+package(){
+	install -Dm755 $pkgname/bin/steam_cli $pkgdir/usr/bin/steam-cli
+}
+sha256sums=('SKIP')
