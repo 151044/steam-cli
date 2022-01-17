@@ -39,5 +39,6 @@ int main(){
 			std::system(args.c_str());
 		}
 	}
+	system("steam -shutdown");
 	return 0;
 }
