@@ -39,6 +39,6 @@ int main(){
 			std::system(args.c_str());
 		}
 	}
-	system("steam -shutdown");
+	system("pidof steam &> /dev/null || steam -shutdown &> /dev/null &");
 	return 0;
 }
