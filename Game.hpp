@@ -4,7 +4,7 @@ class Game{
         int appid;
         std::string name;
     public:
-        std::string getName();
-        int getAppId();
+        const std::string& getName() const;
+        int getAppId() const;
 		Game(const std::string&);
 };
