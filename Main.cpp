@@ -21,7 +21,7 @@ int main(){
 		}
 	}
 	int response = 999;
-	while(response > 0){
+	while(response >= 0){
 		std::cout << "0 - Exit" << std::endl;
 		for(int i = 0; i < games.size(); i++){
 			std::cout << i + 1 << " - " << games.at(i).getName() << std::endl;
@@ -32,7 +32,7 @@ int main(){
 		if(response > static_cast<int>(games.size() - 1)){
 			std::cout << response << " " << games.size() - 1 << std::endl;
 			std::cout << "Index out of range.\n" << std::endl;
-		}else if(response > 0){
+		}else if(response >= 0){
 			Game game = games.at(response);
 			std::cout << "Launching game " << game.getName() << ".\n" << std::endl;
 			std::string args = "steam steam://rungameid/" + std::to_string(game.getAppId()) + " &> /dev/null";	
