@@ -2,12 +2,26 @@
 #include <filesystem>
 #include <fstream>
 #include <vector>
+#include <cstring>
 #include "Game.hpp"
 #include "utils/fs.hpp"
-int main(){
+int main(int argc, char *argv[]){
 	std::vector<Game> games;
 	std::cout << "Steam CLI, v0.0.1" << std::endl;
-	system("pidof steam &> /dev/null || nohup steam -silent &> /dev/null &");
+	std::string toDevNull = "&> /dev/null";
+	if(argc > 1){
+		for(int i = 1; i < argc; i++){
+			if(std::strcmp(argv[i],"--show-output") == 0 || std::strcmp(argv[i],"-o") == 0){
+				toDevNull = "";
+			}
+		}
+	}
+	std::string command = "pidof steam &> /dev/null || ";
+	if(toDevNull != ""){
+		command += "nohup "; 
+	}
+	command += "steam -silent " + toDevNull + " &";
+	system(command.c_str());
 	for(auto&& entry: std::filesystem::directory_iterator(cutil::fs::getHomeDir() + "/.steam/steam/steamapps")){
 		std::filesystem::path path = entry.path();
 		if(path.extension() == ".acf"){
@@ -35,10 +49,11 @@ int main(){
 		}else if(response >= 0){
 			Game game = games.at(response);
 			std::cout << "Launching game " << game.getName() << ".\n" << std::endl;
-			std::string args = "steam steam://rungameid/" + std::to_string(game.getAppId()) + " &> /dev/null";	
+			std::string args = "steam steam://rungameid/" + std::to_string(game.getAppId()) + " " + toDevNull;	
 			std::system(args.c_str());
 		}
 	}
-	system("pidof steam &> /dev/null && steam -shutdown &> /dev/null &");
+	command = "pidof steam &> /dev/null && steam -shutdown " + toDevNull + " &";
+	system(command.c_str());
 	return 0;
 }
