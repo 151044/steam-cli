@@ -7,7 +7,7 @@ namespace cutil::str{
 		int delim_pos = input.find(delimiter);
 		int pos = 0;
 		while(delim_pos != std::string::npos){
-			vec.push_back(input.substr(pos, delim_pos - pos));
+			vec.emplace_back(input.substr(pos, delim_pos - pos));
 			pos = delim_pos + delim_len;	
 			delim_pos = input.find(delimiter, pos);
 		}
