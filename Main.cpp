@@ -44,7 +44,6 @@ int main(int argc, char *argv[]){
 		std::cin >> response;
 		response--;
 		if(response > static_cast<int>(games.size() - 1)){
-			std::cout << response << " " << games.size() - 1 << std::endl;
 			std::cout << "Index out of range.\n" << std::endl;
 		}else if(response >= 0){
 			Game game = games.at(response);
